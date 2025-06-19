@@ -1,0 +1,38 @@
+{{- if .Values.courseService.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: course-service
+  template:
+    metadata:
+      labels:
+        app: course-service
+    spec:
+      containers:
+      - name: course-service
+        image: {{ .Values.global.imageRegistry }}/v-learning-course-service:{{ .Values.global.imageTag }}
+        envFrom:
+        - configMapRef:
+            name: course-service-config
+        ports:
+        - containerPort: {{ .Values.courseService.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: course-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: course-service
+  ports:
+  - port: {{ .Values.courseService.port }}
+    targetPort: {{ .Values.courseService.port }}
+  type: ClusterIP
+{{- end }}

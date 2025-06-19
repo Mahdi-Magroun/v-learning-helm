@@ -1,0 +1,25 @@
+{{- if .Values.postgres.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: postgres
+    component: database
+data:
+  POSTGRES_DB: {{ .Values.postgres.database }}
+  POSTGRES_USER: {{ .Values.postgres.username }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: postgres
+    component: database
+type: Opaque
+data:
+  POSTGRES_PASSWORD: {{ .Values.postgres.password | b64enc }}
+{{- end }}

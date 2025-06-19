@@ -1,0 +1,60 @@
+{{- if .Values.eureka.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eureka-config
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: eureka-server
+    component: service-discovery
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+{{- end }}
+
+---
+
+{{- if .Values.gateway.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-gateway-config
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: api-gateway
+    component: gateway
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+{{- end }}
+
+---
+
+{{- if .Values.userService.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: user-service
+    component: microservice
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+{{- end }}
+
+---
+
+{{- if .Values.courseService.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: course-service-config
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: course-service
+    component: microservice
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+{{- end }}

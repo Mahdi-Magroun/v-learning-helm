@@ -1,0 +1,38 @@
+{{- if .Values.userService.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: {{ .Values.global.imageRegistry }}/v-learning-user-service:{{ .Values.global.imageTag }}
+        envFrom:
+        - configMapRef:
+            name: user-service-config
+        ports:
+        - containerPort: {{ .Values.userService.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: user-service
+  ports:
+  - port: {{ .Values.userService.port }}
+    targetPort: {{ .Values.userService.port }}
+  type: ClusterIP
+{{- end }}

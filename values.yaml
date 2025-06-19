@@ -1,0 +1,51 @@
+# V-Learning Platform Configuration
+global:
+  namespace: v-learning
+  imageRegistry: mahdi0188
+  imageTag: dev-66
+
+# Database
+postgres:
+  enabled: true
+  image: postgres:15-alpine
+  database: pfe_learning
+  username: pfe_user
+  password: "123456"
+
+# Service Discovery
+eureka:
+  enabled: true
+  port: 8761
+
+# API Gateway
+gateway:
+  enabled: true
+  port: 8080
+  nodePort: 30080
+
+# Microservices
+userService:
+  enabled: true
+  port: 8081
+
+courseService:
+  enabled: true
+  port: 8082
+
+contentService:
+  enabled: true
+  port: 8083
+
+enrollmentService:
+  enabled: true
+  port: 8084
+
+certificateService:
+  enabled: true
+  port: 8085
+
+# Frontend
+frontend:
+  enabled: true
+  port: 4200
+  nodePort: 30420
