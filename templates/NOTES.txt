@@ -1,0 +1,55 @@
+1. Get the applications URLs by running these commands:
+
+  Frontend Application:
+    echo "Frontend URL: http://localhost:{{ .Values.frontend.nodePort }}"
+
+  API Gateway:
+    echo "API Gateway URL: http://localhost:{{ .Values.gateway.nodePort }}"
+
+  Eureka Server (Service Discovery):
+    kubectl --namespace {{ .Values.global.namespace }} port-forward svc/eureka-server 8761:8761
+    echo "Eureka URL: http://127.0.0.1:8761"
+
+2. Monitor your deployment:
+
+  Watch all pods:
+    kubectl get pods --namespace {{ .Values.global.namespace }} -w
+
+  Check services:
+    kubectl get svc --namespace {{ .Values.global.namespace }}
+
+  View logs of a specific service:
+    kubectl logs --namespace {{ .Values.global.namespace }} deployment/api-gateway
+    kubectl logs --namespace {{ .Values.global.namespace }} deployment/user-service
+
+3. Database access:
+
+  Connect to PostgreSQL:
+    kubectl exec -it --namespace {{ .Values.global.namespace }} deployment/postgres -- psql -U {{ .Values.postgres.username }} -d {{ .Values.postgres.database }}
+
+4. Scaling your deployment:
+
+  Update values.yaml and upgrade:
+    helm upgrade {{ .Release.Name }} .
+
+5. Troubleshooting:
+
+  If pods are not starting, check events:
+    kubectl get events --namespace {{ .Values.global.namespace }} --sort-by='.lastTimestamp'
+
+  Check pod status:
+    kubectl describe pods --namespace {{ .Values.global.namespace }} <pod-name>
+
+Thank you for installing V-Learning Platform!
+Chart version: {{ .Chart.Version }}
+App version: {{ .Chart.AppVersion }}
+
+{{- if .Values.postgres.enabled }}
+
+🔐 SECURITY NOTICE:
+The PostgreSQL database is deployed with default credentials.
+Please change the password in production environments.
+
+{{- end }}
+
+Happy Learning! 🎓
