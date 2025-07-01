@@ -2,7 +2,7 @@
 global:
   namespace: v-learning
   imageRegistry: mahdi0188
-  imageTag: test-2
+  imageTag: test-3
 
 # Database
 postgres:
