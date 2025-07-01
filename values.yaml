@@ -21,7 +21,7 @@ eureka:
 gateway:
   enabled: true
   port: 8080
-  nodePort: 30080
+  nodePort: 30082
 
 # Microservices
 userService:
@@ -48,4 +48,4 @@ certificateService:
 frontend:
   enabled: true
   port: 4200
-  nodePort: 30420
+  nodePort: 30423
