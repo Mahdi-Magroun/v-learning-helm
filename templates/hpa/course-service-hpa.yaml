@@ -7,7 +7,9 @@ metadata:
   labels:
     app: course-service
     component: hpa
-    {{- include "v-learning.labels" . | nindent 4 }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -30,15 +32,15 @@ spec:
         averageUtilization: {{ .Values.hpa.courseService.targetMemoryUtilizationPercentage | default .Values.hpa.default.targetMemoryUtilizationPercentage }}
   behavior:
     scaleDown:
-      stabilizationWindowSeconds: {{ .Values.hpa.courseService.scaleDown.stabilizationWindowSeconds | default .Values.hpa.default.scaleDown.stabilizationWindowSeconds }}
+      stabilizationWindowSeconds: {{ .Values.hpa.default.scaleDown.stabilizationWindowSeconds }}
       policies:
       - type: Percent
-        value: {{ .Values.hpa.courseService.scaleDown.percentValue | default .Values.hpa.default.scaleDown.percentValue }}
-        periodSeconds: {{ .Values.hpa.courseService.scaleDown.periodSeconds | default .Values.hpa.default.scaleDown.periodSeconds }}
+        value: {{ .Values.hpa.default.scaleDown.percentValue }}
+        periodSeconds: {{ .Values.hpa.default.scaleDown.periodSeconds }}
     scaleUp:
-      stabilizationWindowSeconds: {{ .Values.hpa.courseService.scaleUp.stabilizationWindowSeconds | default .Values.hpa.default.scaleUp.stabilizationWindowSeconds }}
+      stabilizationWindowSeconds: {{ .Values.hpa.default.scaleUp.stabilizationWindowSeconds }}
       policies:
       - type: Percent
-        value: {{ .Values.hpa.courseService.scaleUp.percentValue | default .Values.hpa.default.scaleUp.percentValue }}
-        periodSeconds: {{ .Values.hpa.courseService.scaleUp.periodSeconds | default .Values.hpa.default.scaleUp.periodSeconds }}
+        value: {{ .Values.hpa.default.scaleUp.percentValue }}
+        periodSeconds: {{ .Values.hpa.default.scaleUp.periodSeconds }}
 {{- end }}
