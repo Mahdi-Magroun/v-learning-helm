@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: content-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-content-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-content-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"
@@ -66,7 +66,7 @@ spec:
     spec:
       containers:
       - name: enrollment-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-enrollment-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-enrollment-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"  
@@ -116,7 +116,7 @@ spec:
     spec:
       containers:
       - name: certificate-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-certificate-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-certificate-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"

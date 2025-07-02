@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-user-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-user-service:{{ .Values.global.imageTag }}
         envFrom:
         - configMapRef:
             name: user-service-config

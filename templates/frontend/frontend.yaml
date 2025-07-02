@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: {{ .Values.global.imageRegistry }}/v-learning-frontend:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-frontend:{{ .Values.global.imageTag }}
         ports:
         - containerPort: 80
 ---

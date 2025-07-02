@@ -1,7 +1,6 @@
 # V-Learning Platform Configuration
 global:
   namespace: v-learning
-  imageRegistry: mahdi0188
   imageTag: test-2
 
 # Horizontal Pod Autoscaler Configuration
@@ -103,22 +102,13 @@ postgres:
   password: "123456"
 
 # PostgreSQL High Availability Configuration
-postgresHA:
-  enabled: true
-  global:
-    postgresql:
-      auth:
-        postgresPassword: "123456"
-        username: "pfe_user"
-        password: "123456"
-        database: "pfe_learning"
-      service:
-        ports:
-          postgresql: 5432
+postgresql-ha:
   postgresql:
     replicaCount: 3
     image:
-      tag: "15.8.0-debian-12-r5"
+      registry: docker.io
+      repository: bitnami/postgresql-repmgr
+      tag: "16.6.0-debian-12-r0"
     auth:
       enablePostgresUser: true
       postgresPassword: "123456"
@@ -151,6 +141,10 @@ postgresHA:
           cpu: "1000m"
   pgpool:
     replicaCount: 2
+    image:
+      registry: docker.io
+      repository: bitnami/pgpool
+      tag: "4.5.4-debian-12-r7"
     adminUsername: "admin"
     adminPassword: "adminpassword123"
     resources:
@@ -162,6 +156,10 @@ postgresHA:
         cpu: "500m"
   metrics:
     enabled: true
+    image:
+      registry: docker.io
+      repository: bitnami/postgres-exporter
+      tag: "0.15.0-debian-12-r26"
     resources:
       requests:
         memory: "64Mi"
@@ -169,6 +167,10 @@ postgresHA:
       limits:
         memory: "128Mi"
         cpu: "200m"
+
+# PostgreSQL HA Control (for our templates)
+postgresHA:
+  enabled: true
 
 # Service Discovery
 eureka:

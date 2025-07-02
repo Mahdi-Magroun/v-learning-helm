@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: course-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-course-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-course-service:{{ .Values.global.imageTag }}
         envFrom:
         - configMapRef:
             name: course-service-config
