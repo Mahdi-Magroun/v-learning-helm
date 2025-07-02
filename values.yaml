@@ -106,6 +106,8 @@ postgresql-ha:
   global:
     imageRegistry: ""
   postgresql:
+    repmgr:
+      enabled: false
     replicaCount: 3
     image:
       registry: docker.io
