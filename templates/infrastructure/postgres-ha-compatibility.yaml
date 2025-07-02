@@ -1,0 +1,25 @@
+{{- if .Values.postgresHA.enabled }}
+# Service to maintain backward compatibility with existing microservices
+# This creates a service named "postgres" that points to the PostgreSQL HA pgpool service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: postgres
+    component: database-compatibility
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: postgresql-ha
+    app.kubernetes.io/component: pgpool
+  ports:
+  - port: 5432
+    targetPort: postgresql
+    protocol: TCP
+    name: postgresql
+{{- end }}
