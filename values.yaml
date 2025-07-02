@@ -46,14 +46,7 @@ hpa:
     minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
-  # PostgreSQL HA HPA Configuration
-  postgresHA:
-    enabled: true
-    pgpool:
-      minReplicas: 2
-      maxReplicas: 5
-      targetCPUUtilizationPercentage: 75
-      targetMemoryUtilizationPercentage: 80
+
 
 # Resource requests and limits for microservices
 resources:
@@ -95,78 +88,11 @@ resources:
 
 # Database Configuration
 postgres:
-  enabled: false  # Disabled - using PostgreSQL HA instead
+  enabled: true  # Enabled - using simple PostgreSQL
   image: postgres:15-alpine
   database: pfe_learning
   username: pfe_user
   password: "123456"
-
-# PostgreSQL High Availability Configuration
-postgresql-ha:
-  global:
-    imageRegistry: ""
-  postgresql:
-    repmgr:
-      enabled: true
-    replicaCount: 3
-    image:
-      registry: docker.io
-      repository: bitnami/postgresql-repmgr
-      tag: "17.2.0-debian-12-r0"
-    auth:
-      enablePostgresUser: true
-      postgresPassword: "123456"
-      username: "pfe_user"
-      password: "123456"
-      database: "pfe_learning"
-      repmgrUsername: "repmgr"
-      repmgrPassword: "37LhP2TT7u"
-      repmgrDatabase: "repmgr"
-    primary:
-      persistence:
-        enabled: true
-        size: 8Gi
-        storageClass: ""
-      resources:
-        requests:
-          memory: "256Mi"
-          cpu: "250m"
-        limits:
-          memory: "1Gi"
-          cpu: "1000m"
-    readReplicas:
-      persistence:
-        enabled: true
-        size: 8Gi
-        storageClass: ""
-      resources:
-        requests:
-          memory: "256Mi"
-          cpu: "250m"
-        limits:
-          memory: "1Gi"
-          cpu: "1000m"
-  pgpool:
-    replicaCount: 2
-    image:
-      registry: docker.io
-      repository: bitnami/pgpool
-      tag: "4.5.4-debian-12-r7"
-    adminUsername: "admin"
-    adminPassword: "adminpassword123"
-    resources:
-      requests:
-        memory: "128Mi"
-        cpu: "100m"
-      limits:
-        memory: "256Mi"
-        cpu: "500m"
-  metrics:
-    enabled: false
-
-# PostgreSQL HA Control (for our templates)
-postgresHA:
-  enabled: true
 
 # Service Discovery
 eureka:
