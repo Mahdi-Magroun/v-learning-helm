@@ -103,6 +103,8 @@ postgres:
 
 # PostgreSQL High Availability Configuration
 postgresql-ha:
+  global:
+    imageRegistry: ""
   postgresql:
     replicaCount: 3
     image:
