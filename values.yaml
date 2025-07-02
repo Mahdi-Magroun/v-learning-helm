@@ -1,7 +1,8 @@
 # V-Learning Platform Configuration
 global:
   namespace: v-learning
-  imageTag: test-2
+  imageRegistry: mahdi0188
+  imageTag: main-6
 
 # Horizontal Pod Autoscaler Configuration
 hpa:
