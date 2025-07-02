@@ -157,18 +157,7 @@ postgresql-ha:
         memory: "256Mi"
         cpu: "500m"
   metrics:
-    enabled: true
-    image:
-      registry: docker.io
-      repository: bitnami/postgres-exporter
-      tag: "0.15.0-debian-12-r26"
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "50m"
-      limits:
-        memory: "128Mi"
-        cpu: "200m"
+    enabled: false
 
 # PostgreSQL HA Control (for our templates)
 postgresHA:
