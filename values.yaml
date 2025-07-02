@@ -117,6 +117,9 @@ postgresql-ha:
       username: "pfe_user"
       password: "123456"
       database: "pfe_learning"
+      repmgrUsername: "repmgr"
+      repmgrPassword: "repmgr123"
+      repmgrDatabase: "repmgr"
     primary:
       persistence:
         enabled: true
