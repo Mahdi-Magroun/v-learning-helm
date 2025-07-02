@@ -16,12 +16,19 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-user-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-user-service:{{ .Values.global.imageTag }}
         envFrom:
         - configMapRef:
             name: user-service-config
         ports:
         - containerPort: {{ .Values.userService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.userService.requests.cpu }}
+            memory: {{ .Values.resources.userService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.userService.limits.cpu }}
+            memory: {{ .Values.resources.userService.limits.memory }}
 ---
 apiVersion: v1
 kind: Service

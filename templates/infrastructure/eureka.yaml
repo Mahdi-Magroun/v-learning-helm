@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: eureka-server
-        image: {{ .Values.global.imageRegistry }}/v-learning-eureka-server:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-eureka-server:{{ .Values.global.imageTag }}
         envFrom:
         - configMapRef:
             name: eureka-config

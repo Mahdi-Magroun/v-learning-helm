@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: content-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-content-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-content-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"
@@ -24,6 +24,13 @@ spec:
           value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
         ports:
         - containerPort: {{ .Values.contentService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.contentService.requests.cpu }}
+            memory: {{ .Values.resources.contentService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.contentService.limits.cpu }}
+            memory: {{ .Values.resources.contentService.limits.memory }}
 ---
 apiVersion: v1
 kind: Service
@@ -59,7 +66,7 @@ spec:
     spec:
       containers:
       - name: enrollment-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-enrollment-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-enrollment-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"  
@@ -67,6 +74,13 @@ spec:
           value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
         ports:
         - containerPort: {{ .Values.enrollmentService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.enrollmentService.requests.cpu }}
+            memory: {{ .Values.resources.enrollmentService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.enrollmentService.limits.cpu }}
+            memory: {{ .Values.resources.enrollmentService.limits.memory }}
 ---
 apiVersion: v1
 kind: Service
@@ -102,7 +116,7 @@ spec:
     spec:
       containers:
       - name: certificate-service
-        image: {{ .Values.global.imageRegistry }}/v-learning-certificate-service:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-certificate-service:{{ .Values.global.imageTag }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "docker"
@@ -110,6 +124,13 @@ spec:
           value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
         ports:
         - containerPort: {{ .Values.certificateService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.certificateService.requests.cpu }}
+            memory: {{ .Values.resources.certificateService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.certificateService.limits.cpu }}
+            memory: {{ .Values.resources.certificateService.limits.memory }}
 --- 
 apiVersion: v1
 kind: Service

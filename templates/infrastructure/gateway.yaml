@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: {{ .Values.global.imageRegistry }}/v-learning-api-gateway:{{ .Values.global.imageTag }}
+        image: mahdi0188/v-learning-api-gateway:{{ .Values.global.imageTag }}
         envFrom:
         - configMapRef:
             name: api-gateway-config
