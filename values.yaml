@@ -107,7 +107,7 @@ postgresql-ha:
     imageRegistry: ""
   postgresql:
     repmgr:
-      enabled: false
+      enabled: true
     replicaCount: 3
     image:
       registry: docker.io
@@ -120,7 +120,7 @@ postgresql-ha:
       password: "123456"
       database: "pfe_learning"
       repmgrUsername: "repmgr"
-      repmgrPassword: "QUZ0GuN5V8"
+      repmgrPassword: "37LhP2TT7u"
       repmgrDatabase: "repmgr"
     primary:
       persistence:
