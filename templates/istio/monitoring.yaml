@@ -1,0 +1,36 @@
+{{- if .Values.istio.enabled }}
+# ServiceMonitor for monitoring Istio sidecar metrics
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-proxy
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: istio-proxy
+spec:
+  selector:
+    matchLabels:
+      app: istio-proxy
+  endpoints:
+  - port: http-monitoring
+    interval: 15s
+    path: /stats/prometheus
+---
+# Service for Istio proxy metrics
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-proxy
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: istio-proxy
+spec:
+  ports:
+  - name: http-monitoring
+    port: 15090
+    targetPort: 15090
+  selector:
+    # This will select all pods with Istio sidecar
+    security.istio.io/tlsMode: istio
+  type: ClusterIP
+{{- end }}

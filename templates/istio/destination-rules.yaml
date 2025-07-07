@@ -1,0 +1,129 @@
+{{- if .Values.istio.enabled }}
+# User Service Destination Rule
+{{- if .Values.userService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: user-service-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: user-service
+  {{- if .Values.canary.enabled }}
+  subsets:
+  - name: current
+    labels:
+      version: current
+  - name: previous
+    labels:
+      version: previous
+  {{- end }}
+---
+{{- end }}
+
+# Course Service Destination Rule
+{{- if .Values.courseService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: course-service-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: course-service
+  {{- if .Values.canary.enabled }}
+  subsets:
+  - name: current
+    labels:
+      version: current
+  - name: previous
+    labels:
+      version: previous
+  {{- end }}
+---
+{{- end }}
+
+# Content Service Destination Rule
+{{- if .Values.contentService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: content-service-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: content-service
+  {{- if .Values.canary.enabled }}
+  subsets:
+  - name: current
+    labels:
+      version: current
+  - name: previous
+    labels:
+      version: previous
+  {{- end }}
+---
+{{- end }}
+
+# Enrollment Service Destination Rule
+{{- if .Values.enrollmentService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: enrollment-service-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: enrollment-service
+  {{- if .Values.canary.enabled }}
+  subsets:
+  - name: current
+    labels:
+      version: current
+  - name: previous
+    labels:
+      version: previous
+  {{- end }}
+---
+{{- end }}
+
+# Certificate Service Destination Rule
+{{- if .Values.certificateService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: certificate-service-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: certificate-service
+  {{- if .Values.canary.enabled }}
+  subsets:
+  - name: current
+    labels:
+      version: current
+  - name: previous
+    labels:
+      version: previous
+  {{- end }}
+---
+{{- end }}
+
+# API Gateway Destination Rule
+{{- if .Values.gateway.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: api-gateway-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: api-gateway
+---
+{{- end }}
+
+# Frontend Destination Rule
+{{- if .Values.frontend.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: frontend-dr
+  namespace: {{ .Values.global.namespace }}
+spec:
+  host: frontend
+{{- end }}
+{{- end }}
