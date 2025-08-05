@@ -13,6 +13,11 @@ spec:
     metadata:
       labels:
         app: user-service
+        version: current
+      annotations:
+        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
     spec:
       containers:
       - name: user-service

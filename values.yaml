@@ -1,8 +1,41 @@
 # V-Learning Platform Configuration
 global:
   namespace: v-learning
+<<<<<<< HEAD
   imageRegistry: mahdi0188
   imageTag: test-3
+=======
+  imageTag: test-2
+  previousImageTag: test-1  # For canary deployments
+  branch: test  # Options: dev, test, main
+
+# Istio Service Mesh Configuration
+istio:
+  enabled: false  # Default to false, will be enabled based on branch
+  # mTLS Configuration (simplified)
+  mtls:
+    enabled: true
+    mode: PERMISSIVE  # PERMISSIVE allows both mTLS and plain traffic
+  # Ingress Gateway Configuration (HTTP only)
+  ingressGateway:
+    enabled: true
+    name: v-learning-gateway
+    host: v-learning.local
+    port: 80
+
+# Canary Deployment Configuration (simplified)
+canary:
+  enabled: false
+  # Traffic splitting - current vs previous image
+  currentWeight: 90   # Traffic to current image tag
+  previousWeight: 10  # Traffic to previous image tag
+  # Which services to enable canary for
+  userService: false
+  courseService: false
+  contentService: false
+  enrollmentService: false
+  certificateService: false
+>>>>>>> dev
 
 # Horizontal Pod Autoscaler Configuration
 hpa:

@@ -1,0 +1,11 @@
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.istio.mtls.enabled }}
+# Namespace-wide mTLS policy
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: {{ .Values.global.namespace }}
+spec:
+  mtls:
+    mode: {{ .Values.istio.mtls.mode }}
+{{- end }}

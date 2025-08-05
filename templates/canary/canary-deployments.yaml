@@ -1,0 +1,210 @@
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.userService .Values.userService.enabled }}
+# Previous Version Deployment for User Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-previous
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: user-service
+    version: previous
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+      version: previous
+  template:
+    metadata:
+      labels:
+        app: user-service
+        version: previous
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: user-service
+        image: mahdi0188/v-learning-user-service:{{ .Values.global.previousImageTag }}
+        envFrom:
+        - configMapRef:
+            name: user-service-config
+        ports:
+        - containerPort: {{ .Values.userService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.userService.requests.cpu }}
+            memory: {{ .Values.resources.userService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.userService.limits.cpu }}
+            memory: {{ .Values.resources.userService.limits.memory }}
+{{- end }}
+---
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.courseService .Values.courseService.enabled }}
+# Previous Version Deployment for Course Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-service-previous
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: course-service
+    version: previous
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: course-service
+      version: previous
+  template:
+    metadata:
+      labels:
+        app: course-service
+        version: previous
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: course-service
+        image: mahdi0188/v-learning-course-service:{{ .Values.global.previousImageTag }}
+        envFrom:
+        - configMapRef:
+            name: course-service-config
+        ports:
+        - containerPort: {{ .Values.courseService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.courseService.requests.cpu }}
+            memory: {{ .Values.resources.courseService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.courseService.limits.cpu }}
+            memory: {{ .Values.resources.courseService.limits.memory }}
+{{- end }}
+---
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.contentService .Values.contentService.enabled }}
+# Previous Version Deployment for Content Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-service-previous
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: content-service
+    version: previous
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: content-service
+      version: previous
+  template:
+    metadata:
+      labels:
+        app: content-service
+        version: previous
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: content-service
+        image: mahdi0188/v-learning-content-service:{{ .Values.global.previousImageTag }}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "docker"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+        ports:
+        - containerPort: {{ .Values.contentService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.contentService.requests.cpu }}
+            memory: {{ .Values.resources.contentService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.contentService.limits.cpu }}
+            memory: {{ .Values.resources.contentService.limits.memory }}
+{{- end }}
+---
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.enrollmentService .Values.enrollmentService.enabled }}
+# Previous Version Deployment for Enrollment Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enrollment-service-previous
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: enrollment-service
+    version: previous
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: enrollment-service
+      version: previous
+  template:
+    metadata:
+      labels:
+        app: enrollment-service
+        version: previous
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: enrollment-service
+        image: mahdi0188/v-learning-enrollment-service:{{ .Values.global.previousImageTag }}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "docker"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+        ports:
+        - containerPort: {{ .Values.enrollmentService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.enrollmentService.requests.cpu }}
+            memory: {{ .Values.resources.enrollmentService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.enrollmentService.limits.cpu }}
+            memory: {{ .Values.resources.enrollmentService.limits.memory }}
+{{- end }}
+---
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.certificateService .Values.certificateService.enabled }}
+# Previous Version Deployment for Certificate Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certificate-service-previous
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: certificate-service
+    version: previous
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: certificate-service
+      version: previous
+  template:
+    metadata:
+      labels:
+        app: certificate-service
+        version: previous
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: certificate-service
+        image: mahdi0188/v-learning-certificate-service:{{ .Values.global.previousImageTag }}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "docker"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://eureka-server:{{ .Values.eureka.port }}/eureka/"
+        ports:
+        - containerPort: {{ .Values.certificateService.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.certificateService.requests.cpu }}
+            memory: {{ .Values.resources.certificateService.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.certificateService.limits.cpu }}
+            memory: {{ .Values.resources.certificateService.limits.memory }}
+{{- end }}

@@ -13,6 +13,11 @@ spec:
     metadata:
       labels:
         app: content-service
+        version: current
+      annotations:
+        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
     spec:
       containers:
       - name: content-service
@@ -63,6 +68,11 @@ spec:
     metadata:
       labels:
         app: enrollment-service
+        version: current
+      annotations:
+        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
     spec:
       containers:
       - name: enrollment-service
@@ -113,6 +123,11 @@ spec:
     metadata:
       labels:
         app: certificate-service
+        version: current
+      annotations:
+        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
     spec:
       containers:
       - name: certificate-service
