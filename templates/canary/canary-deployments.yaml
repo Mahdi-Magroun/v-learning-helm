@@ -1,4 +1,7 @@
 {{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.userService .Values.userService.enabled }}
+# Note: Since Istio is now managed manually, you will need to manually enable Istio in your namespace
+# using 'kubectl label namespace v-learning istio-injection=enabled' or
+# use 'istioctl kube-inject' before applying these resources.
 # Previous Version Deployment for User Service
 apiVersion: apps/v1
 kind: Deployment

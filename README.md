@@ -221,6 +221,60 @@ For a complete list of configuration options, see the [values.yaml](values.yaml)
 
 ## Istio Service Mesh Features
 
+> **Note:** Istio integration is now manual and not automatically managed by the Helm chart. Follow the setup instructions below.
+
+### Manual Istio Setup
+
+The V-Learning Helm chart now requires manual setup of Istio. Follow these steps to enable Istio:
+
+1. **Install Istio** on your cluster if not already installed:
+   ```bash
+   # Download Istio
+   curl -L https://istio.io/downloadIstio | sh -
+
+   # Move to the Istio package directory
+   cd istio-*
+
+   # Add istioctl to your path
+   export PATH=$PWD/bin:$PATH
+
+   # Install Istio with demo profile (includes defaults for mTLS)
+   istioctl install --set profile=demo -y
+   ```
+
+2. **Enable Istio for the v-learning namespace** using one of these methods:
+   
+   a. Enable Istio injection via namespace label (recommended):
+   ```bash
+   kubectl label namespace v-learning istio-injection=enabled
+   ```
+   
+   b. Or manually inject Istio into your Kubernetes manifests:
+   ```bash
+   # Generate manifests with Helm template
+   helm template v-learning . -n v-learning > v-learning-manifests.yaml
+   
+   # Inject Istio sidecars
+   istioctl kube-inject -f v-learning-manifests.yaml > v-learning-istio.yaml
+   
+   # Apply the modified manifests
+   kubectl apply -f v-learning-istio.yaml
+   ```
+
+3. **Apply Istio resources** for traffic management, mTLS, and other features:
+   ```bash
+   # Apply Istio Gateway
+   kubectl apply -f istio-gateway.yaml
+   
+   # Apply VirtualService for routing
+   kubectl apply -f istio-virtualservice.yaml
+   
+   # Apply DestinationRules for mTLS
+   kubectl apply -f istio-destination-rules.yaml
+   ```
+
+   Example Istio configuration files are provided in the `examples/` directory.
+
 ### Traffic Management
 
 The Istio configuration includes a VirtualService that routes traffic to the appropriate microservices based on URI paths:

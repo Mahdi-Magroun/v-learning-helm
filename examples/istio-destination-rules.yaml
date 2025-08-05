@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: user-service
+  namespace: v-learning
+spec:
+  host: user-service
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: course-service
+  namespace: v-learning
+spec:
+  host: course-service
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: content-service
+  namespace: v-learning
+spec:
+  host: content-service
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

@@ -14,10 +14,8 @@ spec:
       labels:
         app: content-service
         version: current
-      annotations:
-        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
-        sidecar.istio.io/inject: "true"
-        {{- end }}
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: content-service
@@ -69,10 +67,8 @@ spec:
       labels:
         app: enrollment-service
         version: current
-      annotations:
-        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
-        sidecar.istio.io/inject: "true"
-        {{- end }}
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: enrollment-service
@@ -124,10 +120,8 @@ spec:
       labels:
         app: certificate-service
         version: current
-      annotations:
-        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
-        sidecar.istio.io/inject: "true"
-        {{- end }}
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: certificate-service

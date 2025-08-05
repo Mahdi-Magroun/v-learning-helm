@@ -1,8 +1,4 @@
-{{/* Simple helper to enable Istio only for test and main branches */}}
+{{/* Helper for Istio enablement - now always returns false since Istio is managed manually */}}
 {{- define "v-learning.istioEnabled" -}}
-{{- if or (eq .Values.global.branch "test") (eq .Values.global.branch "main") -}}
-true
-{{- else -}}
 false
-{{- end -}}
 {{- end -}}

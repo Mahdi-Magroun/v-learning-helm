@@ -6,18 +6,24 @@ global:
   branch: test  # Options: dev, test, main
 
 # Istio Service Mesh Configuration
+# Note: Istio is now managed manually in the namespace
+# This configuration is retained for reference only and has no effect
 istio:
-  enabled: false  # Default to false, will be enabled based on branch
+  enabled: false  # Always false - Istio is now managed manually
   # mTLS Configuration (simplified)
   mtls:
-    enabled: true
+    enabled: false
     mode: PERMISSIVE  # PERMISSIVE allows both mTLS and plain traffic
   # Ingress Gateway Configuration (HTTP only)
   ingressGateway:
-    enabled: true
+    enabled: false
     name: v-learning-gateway
     host: v-learning.local
     port: 80
+  # Monitoring Configuration
+  monitoring:
+    serviceMonitor:
+      enabled: false  # Set to true only if Prometheus Operator is installed
 
 # Canary Deployment Configuration (simplified)
 canary:

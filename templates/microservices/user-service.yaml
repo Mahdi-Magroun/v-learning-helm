@@ -14,10 +14,8 @@ spec:
       labels:
         app: user-service
         version: current
-      annotations:
-        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
-        sidecar.istio.io/inject: "true"
-        {{- end }}
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: user-service
