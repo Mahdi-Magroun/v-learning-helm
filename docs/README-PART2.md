@@ -1,47 +1,8 @@
-# V-Learning Platform Helm Chart
-
-A comprehensive Helm chart for deploying the V-Learning microservices-based learning management system on Kubernetes with Istio service mesh support.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Features](#features)
-- [Branch-Based Deployment Strategy](#branch-based-deployment-strategy)
-- [Installation](#installation)
-- [Configuration](#configuration)
-  - [Global Configuration](#global-configuration)
-  - [Istio Configuration](#istio-configuration)
-  - [Canary Deployment Configuration](#canary-deployment-configuration)
-  - [Resource Configuration](#resource-configuration)
-- [Microservices](#microservices)
-- [Istio Service Mesh Features](#istio-service-mesh-features)
-  - [Traffic Management](#traffic-management)
-  - [mTLS Security](#mtls-security)
-  - [Canary Deployments](#canary-deployments)
-  - [Ingress Gateway](#ingress-gateway)
-- [Usage Examples](#usage-examples)
-- [Troubleshooting](#troubleshooting)
-
-## Overview
-
-V-Learning is a modern learning management system built with a microservices architecture, featuring:
-
-- **Frontend**: Angular-based user interface
-- **API Gateway**: Spring Boot Gateway for routing and load balancing  
-- **Service Discovery**: Eureka Server for microservice registration
-- **Database**: PostgreSQL for data persistence
-- **Microservices**: 
-  - Course Service: Course catalog and management
-  - Content Service: Learning materials and content delivery
-  - Enrollment Service: Student enrollment and progress tracking
-  - Certificate Service: Certificate generation and verification
-
-## Architecture
+# Architecture
 
 The V-Learning platform follows a modern microservices architecture:
 
-```ascii
+```
                                    ┌─────────────────┐
                                    │                 │
                                    │    Frontend     │
@@ -74,7 +35,7 @@ The V-Learning platform follows a modern microservices architecture:
                                     └─────────────────┘
 ```
 
-## Features
+# Features
 
 - **Kubernetes Native**: Deployments, Services, ConfigMaps, and Volumes
 - **Horizontal Pod Autoscaling**: Scale based on CPU/Memory utilization
@@ -86,7 +47,7 @@ The V-Learning platform follows a modern microservices architecture:
 - **Environment-specific Configuration**: Different settings for dev, test, and main environments
 - **Resource Management**: Configurable CPU and memory limits for all services
 
-## Branch-Based Deployment Strategy
+# Branch-Based Deployment Strategy
 
 The Helm chart implements a branch-based deployment strategy that automatically applies different configurations based on the branch:
 
@@ -97,20 +58,19 @@ The Helm chart implements a branch-based deployment strategy that automatically 
 | main   | Yes           | Full Istio service mesh with canary capability for production |
 
 This approach ensures:
-
 - Faster local development without unnecessary complexity
 - Comprehensive testing with full service mesh capabilities
 - Production-ready deployment with all security and reliability features
 
-## Installation
+# Installation
 
-### Prerequisites
+## Prerequisites
 
 - Kubernetes cluster (1.19+)
 - Helm (3.0+)
 - Istio installed in the cluster (for test and main branches)
 
-### Basic Installation
+## Basic Installation
 
 ```bash
 # Clone the repository
@@ -127,7 +87,7 @@ helm install v-learning . --set global.branch=test --namespace v-learning --crea
 helm install v-learning . --set global.branch=main --namespace v-learning --create-namespace
 ```
 
-### Installation with Custom Values
+## Installation with Custom Values
 
 ```bash
 # Using a custom values file
@@ -142,9 +102,9 @@ helm install v-learning . \
   --create-namespace
 ```
 
-## Configuration
+# Configuration
 
-### Global Configuration
+## Global Configuration
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
@@ -153,7 +113,7 @@ helm install v-learning . \
 | `global.previousImageTag` | Previous image tag for canary deployments | `test-1` |
 | `global.branch` | Current branch for configuration | `test` |
 
-### Istio Configuration
+## Istio Configuration
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
@@ -163,7 +123,7 @@ helm install v-learning . \
 | `istio.ingressGateway.host` | Hostname for ingress gateway | `v-learning.local` |
 | `istio.ingressGateway.port` | HTTP port for ingress gateway | `80` |
 
-### Canary Deployment Configuration
+## Canary Deployment Configuration
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
@@ -176,7 +136,7 @@ helm install v-learning . \
 | `canary.enrollmentService` | Enable canary for enrollment service | `false` |
 | `canary.certificateService` | Enable canary for certificate service | `false` |
 
-### Resource Configuration
+## Resource Configuration
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
@@ -184,44 +144,43 @@ helm install v-learning . \
 | `resources.userService.requests.memory` | Memory request for user service | `256Mi` |
 | `resources.userService.limits.cpu` | CPU limit for user service | `500m` |
 | `resources.userService.limits.memory` | Memory limit for user service | `512Mi` |
+| `resources.courseService.*` | Resource configuration for course service | See `values.yaml` |
+| `resources.contentService.*` | Resource configuration for content service | See `values.yaml` |
+| `resources.enrollmentService.*` | Resource configuration for enrollment service | See `values.yaml` |
+| `resources.certificateService.*` | Resource configuration for certificate service | See `values.yaml` |
 
 For a complete list of configuration options, see the [values.yaml](values.yaml) file.
 
-## Microservices
+# Microservices
 
-### User Service (Port 8081)
-
+## User Service (Port 8081)
 - User registration and authentication
 - Profile management
 - Role-based access control
 
-### Course Service (Port 8082)
-
+## Course Service (Port 8082)
 - Course catalog and management
 - Curriculum organization
 - Course metadata
 
-### Content Service (Port 8083)
-
+## Content Service (Port 8083)
 - Learning materials management
 - Content delivery
 - Media storage and retrieval
 
-### Enrollment Service (Port 8084)
-
+## Enrollment Service (Port 8084)
 - Student enrollment
 - Progress tracking
 - Course completion
 
-### Certificate Service (Port 8085)
-
+## Certificate Service (Port 8085)
 - Certificate generation
 - Certificate verification
 - Achievement tracking
 
-## Istio Service Mesh Features
+# Istio Service Mesh Features
 
-### Traffic Management
+## Traffic Management
 
 The Istio configuration includes a VirtualService that routes traffic to the appropriate microservices based on URI paths:
 
@@ -250,7 +209,7 @@ spec:
         host: api-gateway
 ```
 
-### mTLS Security
+## mTLS Security
 
 Mutual TLS authentication is enabled between services for secure communication:
 
@@ -264,7 +223,7 @@ spec:
     mode: PERMISSIVE  # Can be STRICT for production
 ```
 
-### Canary Deployments
+## Canary Deployments
 
 The chart supports canary deployments for safe rollouts of new versions:
 
@@ -278,13 +237,12 @@ canary:
 ```
 
 The canary deployment creates two versions of a service:
-
 - Current version (using `global.imageTag`)
 - Previous version (using `global.previousImageTag`)
 
 Traffic is split between the versions according to the configured weights.
 
-### Ingress Gateway
+## Ingress Gateway
 
 The Istio ingress gateway provides external access to the platform:
 
@@ -305,16 +263,16 @@ spec:
     - v-learning.local
 ```
 
-## Usage Examples
+# Usage Examples
 
-### Basic Development Setup
+## Basic Development Setup
 
 ```bash
 # Install for development without Istio
 helm install v-learning . --set global.branch=dev --namespace v-learning --create-namespace
 ```
 
-### Testing with Canary Deployments
+## Testing with Canary Deployments
 
 ```bash
 # Install for testing with canary deployment for user service
@@ -326,7 +284,7 @@ helm install v-learning . \
   --create-namespace
 ```
 
-### Production Deployment
+## Production Deployment
 
 ```bash
 # Install for production with strict mTLS
@@ -337,7 +295,7 @@ helm install v-learning . \
   --create-namespace
 ```
 
-### Updating Image Versions
+## Updating Image Versions
 
 ```bash
 # Update to a new version with canary deployment
@@ -350,11 +308,11 @@ helm upgrade v-learning . \
   --namespace v-learning
 ```
 
-## Troubleshooting
+# Troubleshooting
 
-### Common Issues
+## Common Issues
 
-#### Istio Features Not Working in Dev Branch
+### Istio Features Not Working in Dev Branch
 
 Istio features are intentionally disabled in the dev branch. To use Istio, change to the test or main branch:
 
@@ -362,18 +320,16 @@ Istio features are intentionally disabled in the dev branch. To use Istio, chang
 helm upgrade v-learning . --set global.branch=test
 ```
 
-#### Canary Deployments Not Appearing
+### Canary Deployments Not Appearing
 
 Ensure that:
-
 1. You're using the test or main branch (`global.branch=test` or `global.branch=main`)
 2. Canary is enabled globally (`canary.enabled=true`)
 3. Canary is enabled for the specific service (`canary.userService=true`)
 
-#### Services Not Communicating
+### Services Not Communicating
 
 If services can't communicate:
-
 1. Check if mTLS is configured correctly
 2. Verify service names and ports
 3. Check Istio sidecar injection
@@ -388,10 +344,9 @@ kubectl get pods -n v-learning
 kubectl get virtualservices,destinationrules,gateways -n v-learning
 ```
 
-### Getting Help
+## Getting Help
 
 For more information or assistance:
-
 - File an issue on the GitHub repository
 - Check the Istio documentation for advanced troubleshooting
 
@@ -400,231 +355,3 @@ For more information or assistance:
 ## License
 
 This Helm chart is licensed under the MIT License.
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Frontend  │    │ API Gateway │    │   Eureka    │
-│   :30420    │───▶│   :30080    │───▶│   Server    │
-└─────────────┘    └─────────────┘    │   :8761     │
-                          │            └─────────────┘
-                          │                   │
-                          ▼                   │
-                   ┌─────────────┐            │
-                   │ Microservices│            │
-                   │ User :8081   │◀───────────┘
-                   │ Course :8082 │
-                   │ Content :8083│
-                   │ Enroll :8084 │
-                   │ Cert :8085   │
-                   └─────────────┘
-                          │
-                          ▼
-                   ┌─────────────┐
-                   │ PostgreSQL  │
-                   │   :5432     │
-                   └─────────────┘
-```
-
-## Quick Start
-
-### Prerequisites
-
-- Kubernetes cluster (1.19+)
-- Helm 3.x
-- kubectl configured
-
-### Installation
-
-1. **Install the chart:**
-   ```bash
-   helm install v-learning .
-   ```
-
-2. **Check deployment status:**
-   ```bash
-   kubectl get pods -n v-learning
-   ```
-
-3. **Access the application:**
-   - Frontend: http://localhost:30420
-   - API Gateway: http://localhost:30080
-   - Eureka Dashboard: Port-forward with `kubectl port-forward -n v-learning svc/eureka-server 8761:8761`
-
-## Chart Structure
-
-```
-v-learning-helm/
-├── Chart.yaml                 # Chart metadata
-├── values.yaml               # Default configuration values
-├── README.md                 # This file
-└── templates/
-    ├── namespace.yaml        # Namespace creation
-    ├── configs/             # ConfigMaps
-    │   ├── eureka-config.yaml
-    │   ├── gateway-config.yaml
-    │   ├── postgres-config.yaml
-    │   └── services-config.yaml
-    ├── deployments/         # Application deployments
-    │   ├── eureka.yaml
-    │   ├── gateway.yaml
-    │   ├── postgres.yaml
-    │   └── services.yaml
-    ├── frontend/            # Frontend components
-    │   └── frontend.yaml
-    ├── infrastructure/      # Infrastructure components
-    │   └── postgres.yaml
-    ├── secrets/            # Sensitive data
-    │   └── postgres-secret.yaml
-    ├── services/           # Kubernetes services
-    │   ├── eureka-service.yaml
-    │   ├── gateway-service.yaml
-    │   ├── postgres-service.yaml
-    │   └── services-svc.yaml
-    └── volumes/            # Persistent storage
-        └── postgres-pvc.yaml
-```
-
-## Configuration
-
-### Default Values
-
-The chart comes with sensible defaults in `values.yaml`:
-
-```yaml
-global:
-  namespace: v-learning
-  imageRegistry: mahdi0188
-  imageTag: dev-66
-
-postgres:
-  enabled: true
-  database: pfe_learning
-  username: pfe_user
-
-# All services enabled by default
-userService:
-  enabled: true
-  port: 8081
-```
-
-### Customization
-
-Create a custom values file:
-
-```yaml
-# custom-values.yaml
-global:
-  imageTag: "latest"
-
-# Disable specific services
-certificateService:
-  enabled: false
-
-# Custom database configuration
-postgres:
-  database: "my_learning_db"
-  username: "my_user"
-```
-
-Install with custom values:
-```bash
-helm install v-learning . -f custom-values.yaml
-```
-
-## Operations
-
-### Scaling
-
-Update replicas in values.yaml and upgrade:
-```bash
-helm upgrade v-learning .
-```
-
-### Updates
-
-Update image tags:
-```bash
-helm upgrade v-learning . --set global.imageTag=v2.0
-```
-
-### Rollback
-
-Rollback to previous version:
-```bash
-helm rollback v-learning 1
-```
-
-### Uninstall
-
-Remove completely:
-```bash
-helm uninstall v-learning
-kubectl delete namespace v-learning
-```
-
-## Monitoring & Troubleshooting
-
-### Check Pod Status
-```bash
-kubectl get pods -n v-learning
-```
-
-### View Logs
-```bash
-# API Gateway logs
-kubectl logs -n v-learning deployment/api-gateway
-
-# Database logs  
-kubectl logs -n v-learning deployment/postgres
-
-# Service logs
-kubectl logs -n v-learning deployment/user-service
-```
-
-### Service Discovery
-Check Eureka dashboard:
-```bash
-kubectl port-forward -n v-learning svc/eureka-server 8761:8761
-# Visit: http://localhost:8761
-```
-
-### Database Access
-Connect to PostgreSQL:
-```bash
-kubectl exec -it -n v-learning deployment/postgres -- psql -U pfe_user -d pfe_learning
-```
-
-### Common Issues
-
-1. **Services in CrashLoopBackOff:**
-   - Usually means waiting for database/Eureka to be ready
-   - Check logs: `kubectl logs -n v-learning <pod-name>`
-
-2. **PostgreSQL Init Issues:**
-   - Delete PVC and restart: `kubectl delete pvc -n v-learning postgres-pvc`
-
-3. **Service Discovery Issues:**
-   - Verify Eureka is running: `kubectl get pods -n v-learning -l app=eureka-server`
-
-## Security Considerations
-
-- Database passwords should be changed from defaults
-- Consider using Kubernetes secrets for sensitive data
-- Implement network policies for production
-- Use service accounts with minimal permissions
-
-## Support
-
-For issues and questions:
-- Check the troubleshooting section above
-- Review Kubernetes events: `kubectl get events -n v-learning`
-- Examine pod logs for specific errors
-
-## Version History
-
-- **1.0.0**: Initial release with all core services
-  - PostgreSQL database
-  - Eureka service discovery  
-  - API Gateway
-  - 5 microservices (User, Course, Content, Enrollment, Certificate)
-  - Angular frontend

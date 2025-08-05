@@ -3,10 +3,11 @@ global:
   namespace: v-learning
   imageTag: test-2
   previousImageTag: test-1  # For canary deployments
+  branch: test  # Options: dev, test, main
 
 # Istio Service Mesh Configuration
 istio:
-  enabled: true
+  enabled: false  # Default to false, will be enabled based on branch
   # mTLS Configuration (simplified)
   mtls:
     enabled: true

@@ -1,4 +1,4 @@
-{{- if and .Values.istio.enabled .Values.istio.ingressGateway.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.istio.ingressGateway.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:

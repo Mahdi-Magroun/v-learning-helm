@@ -1,4 +1,4 @@
-{{- if and .Values.canary.enabled .Values.canary.userService .Values.userService.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.userService .Values.userService.enabled }}
 # Previous Version Deployment for User Service
 apiVersion: apps/v1
 kind: Deployment
@@ -39,7 +39,7 @@ spec:
             memory: {{ .Values.resources.userService.limits.memory }}
 {{- end }}
 ---
-{{- if and .Values.canary.enabled .Values.canary.courseService .Values.courseService.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.courseService .Values.courseService.enabled }}
 # Previous Version Deployment for Course Service
 apiVersion: apps/v1
 kind: Deployment
@@ -80,7 +80,7 @@ spec:
             memory: {{ .Values.resources.courseService.limits.memory }}
 {{- end }}
 ---
-{{- if and .Values.canary.enabled .Values.canary.contentService .Values.contentService.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.contentService .Values.contentService.enabled }}
 # Previous Version Deployment for Content Service
 apiVersion: apps/v1
 kind: Deployment
@@ -123,7 +123,7 @@ spec:
             memory: {{ .Values.resources.contentService.limits.memory }}
 {{- end }}
 ---
-{{- if and .Values.canary.enabled .Values.canary.enrollmentService .Values.enrollmentService.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.enrollmentService .Values.enrollmentService.enabled }}
 # Previous Version Deployment for Enrollment Service
 apiVersion: apps/v1
 kind: Deployment
@@ -166,7 +166,7 @@ spec:
             memory: {{ .Values.resources.enrollmentService.limits.memory }}
 {{- end }}
 ---
-{{- if and .Values.canary.enabled .Values.canary.certificateService .Values.certificateService.enabled }}
+{{- if and (eq (include "v-learning.istioEnabled" .) "true") .Values.canary.enabled .Values.canary.certificateService .Values.certificateService.enabled }}
 # Previous Version Deployment for Certificate Service
 apiVersion: apps/v1
 kind: Deployment
