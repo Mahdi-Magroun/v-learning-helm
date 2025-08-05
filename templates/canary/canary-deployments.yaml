@@ -22,8 +22,8 @@ spec:
       labels:
         app: user-service
         version: previous
-      annotations:
-        sidecar.istio.io/inject: "true"
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: user-service
