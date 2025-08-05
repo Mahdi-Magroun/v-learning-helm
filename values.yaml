@@ -1,10 +1,6 @@
 # V-Learning Platform Configuration
 global:
   namespace: v-learning
-<<<<<<< HEAD
-  imageRegistry: mahdi0188
-  imageTag: test-3
-=======
   imageTag: test-2
   previousImageTag: test-1  # For canary deployments
   branch: test  # Options: dev, test, main
@@ -35,7 +31,6 @@ canary:
   contentService: false
   enrollmentService: false
   certificateService: false
->>>>>>> dev
 
 # Horizontal Pod Autoscaler Configuration
 hpa:
