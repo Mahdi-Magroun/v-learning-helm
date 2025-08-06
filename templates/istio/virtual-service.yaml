@@ -23,138 +23,59 @@ spec:
         host: frontend
         port:
           number: {{ .Values.frontend.port }}
-  # Direct authentication routes to user-service
+    corsPolicy:
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - Content-Type
+      - Accept
+      - Origin
+      - X-Requested-With
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - OPTIONS
+      allowOrigins:
+      - exact: '*'
+      maxAge: 24h
+  # All API traffic routes through API Gateway
   - match:
+    - uri:
+        prefix: /userservice/
+    - uri:
+        prefix: /courseservice/
+    - uri:
+        prefix: /contentservice/
+    - uri:
+        prefix: /enrollmentservice/
+    - uri:
+        prefix: /certificateservice/
     - uri:
         prefix: /auth/
-    route:
-    - destination:
-        host: user-service
-        port:
-          number: {{ .Values.userService.port }}
-  # API Gateway routes
-  - match:
-    - uri:
-        prefix: /api/
     route:
     - destination:
         host: api-gateway
         port:
           number: {{ .Values.gateway.port }}
-  # Direct microservice routes (for development/testing)
-  - match:
-    - uri:
-        prefix: /user-service/
-    route:
-    {{- if and .Values.canary.enabled .Values.canary.userService }}
-    - destination:
-        host: user-service
-        port:
-          number: {{ .Values.userService.port }}
-        subset: current
-      weight: {{ .Values.canary.currentWeight }}
-    - destination:
-        host: user-service
-        port:
-          number: {{ .Values.userService.port }}
-        subset: previous
-      weight: {{ .Values.canary.previousWeight }}
-    {{- else }}
-    - destination:
-        host: user-service
-        port:
-          number: {{ .Values.userService.port }}
-    {{- end }}
-  - match:
-    - uri:
-        prefix: /course-service/
-    route:
-    {{- if and .Values.canary.enabled .Values.canary.courseService }}
-    - destination:
-        host: course-service
-        port:
-          number: {{ .Values.courseService.port }}
-        subset: current
-      weight: {{ .Values.canary.currentWeight }}
-    - destination:
-        host: course-service
-        port:
-          number: {{ .Values.courseService.port }}
-        subset: previous
-      weight: {{ .Values.canary.previousWeight }}
-    {{- else }}
-    - destination:
-        host: course-service
-        port:
-          number: {{ .Values.courseService.port }}
-    {{- end }}
-  - match:
-    - uri:
-        prefix: /content-service/
-    route:
-    {{- if and .Values.canary.enabled .Values.canary.contentService }}
-    - destination:
-        host: content-service
-        port:
-          number: {{ .Values.contentService.port }}
-        subset: current
-      weight: {{ .Values.canary.currentWeight }}
-    - destination:
-        host: content-service
-        port:
-          number: {{ .Values.contentService.port }}
-        subset: previous
-      weight: {{ .Values.canary.previousWeight }}
-    {{- else }}
-    - destination:
-        host: content-service
-        port:
-          number: {{ .Values.contentService.port }}
-    {{- end }}
-  - match:
-    - uri:
-        prefix: /enrollment-service/
-    route:
-    {{- if and .Values.canary.enabled .Values.canary.enrollmentService }}
-    - destination:
-        host: enrollment-service
-        port:
-          number: {{ .Values.enrollmentService.port }}
-        subset: current
-      weight: {{ .Values.canary.currentWeight }}
-    - destination:
-        host: enrollment-service
-        port:
-          number: {{ .Values.enrollmentService.port }}
-        subset: previous
-      weight: {{ .Values.canary.previousWeight }}
-    {{- else }}
-    - destination:
-        host: enrollment-service
-        port:
-          number: {{ .Values.enrollmentService.port }}
-    {{- end }}
-  - match:
-    - uri:
-        prefix: /certificate-service/
-    route:
-    {{- if and .Values.canary.enabled .Values.canary.certificateService }}
-    - destination:
-        host: certificate-service
-        port:
-          number: {{ .Values.certificateService.port }}
-        subset: current
-      weight: {{ .Values.canary.currentWeight }}
-    - destination:
-        host: certificate-service
-        port:
-          number: {{ .Values.certificateService.port }}
-        subset: previous
-      weight: {{ .Values.canary.previousWeight }}
-    {{- else }}
-    - destination:
-        host: certificate-service
-        port:
-          number: {{ .Values.certificateService.port }}
-    {{- end }}
+    corsPolicy:
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - Content-Type
+      - Accept
+      - Origin
+      - X-Requested-With
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - OPTIONS
+      allowOrigins:
+      - exact: '*'
+      maxAge: 24h
 {{- end }}
