@@ -3,7 +3,7 @@ global:
   namespace: v-learning-test
   imageTag: main-6
   previousImageTag: main-5  # For canary deployments
-  branch: test  # Options: dev, test, main
+  branch: main  # Options: dev, test, main
 
 # Istio Service Mesh Configuration
 # Note: Istio is now managed manually in the namespace
