@@ -9,14 +9,14 @@ global:
 # Note: Istio is now managed manually in the namespace
 # This configuration is retained for reference only and has no effect
 istio:
-  enabled: false  # Always false - Istio is now managed manually
+  enabled: true  # Set to true to enable Istio features
   # mTLS Configuration (simplified)
   mtls:
     enabled: false
     mode: PERMISSIVE  # PERMISSIVE allows both mTLS and plain traffic
   # Ingress Gateway Configuration (HTTP only)
   ingressGateway:
-    enabled: false
+    enabled: true
     name: v-learning-gateway
     host: v-learning.local
     port: 80
@@ -123,7 +123,7 @@ resources:
 
 # Database Configuration
 postgres:
-  enabled: true  # Enabled - using simple PostgreSQL
+  enabled: false  # Disabled - not using PostgreSQL
   image: postgres:15-alpine
   database: pfe_learning
   username: pfe_user
