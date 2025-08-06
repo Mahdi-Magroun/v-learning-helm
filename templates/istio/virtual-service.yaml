@@ -23,6 +23,15 @@ spec:
         host: frontend
         port:
           number: {{ .Values.frontend.port }}
+  # Direct authentication routes to user-service
+  - match:
+    - uri:
+        prefix: /auth/
+    route:
+    - destination:
+        host: user-service
+        port:
+          number: {{ .Values.userService.port }}
   # API Gateway routes
   - match:
     - uri:
