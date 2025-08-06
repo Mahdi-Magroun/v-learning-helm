@@ -10,51 +10,10 @@ spec:
   gateways:
   - {{ .Values.istio.ingressGateway.name }}
   http:
-  # Frontend routes
+  # All routes redirected to API Gateway
   - match:
     - uri:
         prefix: /
-    - uri:
-        prefix: /assets/
-    - uri:
-        prefix: /static/
-    route:
-    - destination:
-        host: frontend
-        port:
-          number: {{ .Values.frontend.port }}
-    corsPolicy:
-      allowCredentials: true
-      allowHeaders:
-      - Authorization
-      - Content-Type
-      - Accept
-      - Origin
-      - X-Requested-With
-      allowMethods:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-      - PATCH
-      - OPTIONS
-      allowOrigins:
-      - exact: '*'
-      maxAge: 24h
-  # All API traffic routes through API Gateway
-  - match:
-    - uri:
-        prefix: /userservice/
-    - uri:
-        prefix: /courseservice/
-    - uri:
-        prefix: /contentservice/
-    - uri:
-        prefix: /enrollmentservice/
-    - uri:
-        prefix: /certificateservice/
-    - uri:
-        prefix: /auth/
     route:
     - destination:
         host: api-gateway
