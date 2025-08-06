@@ -1,4 +1,8 @@
-{{/* Helper for Istio enablement - now always returns false since Istio is managed manually */}}
+{{/* Helper for Istio enablement - returns the istio.enabled value */}}
 {{- define "v-learning.istioEnabled" -}}
+{{- if .Values.istio.enabled -}}
+true
+{{- else -}}
 false
+{{- end -}}
 {{- end -}}
