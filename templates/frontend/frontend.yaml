@@ -13,6 +13,11 @@ spec:
     metadata:
       labels:
         app: frontend
+        version: current
+      annotations:
+        {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
     spec:
       containers:
       - name: frontend

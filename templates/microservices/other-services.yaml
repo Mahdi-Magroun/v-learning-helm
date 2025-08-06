@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         app: content-service
+        version: current
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: content-service
@@ -63,6 +66,9 @@ spec:
     metadata:
       labels:
         app: enrollment-service
+        version: current
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: enrollment-service
@@ -113,6 +119,9 @@ spec:
     metadata:
       labels:
         app: certificate-service
+        version: current
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: certificate-service

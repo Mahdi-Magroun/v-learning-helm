@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         app: course-service
+        version: current
+      # Note: Istio sidecar injection is now managed manually via namespace labels
+      # or via istioctl commands
     spec:
       containers:
       - name: course-service
