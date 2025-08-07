@@ -38,6 +38,12 @@ kind: Service
 metadata:
   name: user-service
   namespace: {{ .Values.global.namespace }}
+  {{- if .Values.istio.monitoring.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.userService.port }}"
+    prometheus.io/path: "{{ .Values.istio.monitoring.prometheus.path }}"
+  {{- end }}
 spec:
   selector:
     app: user-service

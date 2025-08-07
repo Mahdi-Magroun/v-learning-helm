@@ -24,6 +24,9 @@ istio:
   monitoring:
     serviceMonitor:
       enabled: false  # Set to true only if Prometheus Operator is installed
+    prometheus:
+      enabled: true  # Enable Prometheus scraping annotations on services
+      path: "/internal/prometheus"  # Path for Prometheus metrics endpoint
 
 # Canary Deployment Configuration (simplified)
 canary:

@@ -40,6 +40,12 @@ kind: Service
 metadata:
   name: content-service
   namespace: {{ .Values.global.namespace }}
+  {{- if .Values.istio.monitoring.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.contentService.port }}"
+    prometheus.io/path: "{{ .Values.istio.monitoring.prometheus.path }}"
+  {{- end }}
 spec:
   selector:
     app: content-service
@@ -93,6 +99,12 @@ kind: Service
 metadata:
   name: enrollment-service
   namespace: {{ .Values.global.namespace }}
+  {{- if .Values.istio.monitoring.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.enrollmentService.port }}"
+    prometheus.io/path: "{{ .Values.istio.monitoring.prometheus.path }}"
+  {{- end }}
 spec:
   selector:
     app: enrollment-service
@@ -146,6 +158,12 @@ kind: Service
 metadata:
   name: certificate-service
   namespace: {{ .Values.global.namespace }}
+  {{- if .Values.istio.monitoring.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.certificateService.port }}"
+    prometheus.io/path: "{{ .Values.istio.monitoring.prometheus.path }}"
+  {{- end }}
 spec:
   selector:
     app: certificate-service
