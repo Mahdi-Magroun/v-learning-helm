@@ -36,6 +36,12 @@ spec:
   ports:
   - port: {{ .Values.frontend.port }}
     targetPort: 80
+    {{- if not (eq (include "v-learning.istioEnabled" .) "true") }}
     nodePort: {{ .Values.frontend.nodePort }}
+    {{- end }}
+  {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+  type: ClusterIP
+  {{- else }}
   type: NodePort
+  {{- end }}
 {{- end }}

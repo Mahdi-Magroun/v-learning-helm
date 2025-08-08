@@ -43,6 +43,12 @@ spec:
   ports:
   - port: {{ .Values.gateway.port }}
     targetPort: {{ .Values.gateway.port }}
+    {{- if not (eq (include "v-learning.istioEnabled" .) "true") }}
     nodePort: {{ .Values.gateway.nodePort }}
+    {{- end }}
+  {{- if eq (include "v-learning.istioEnabled" .) "true" }}
+  type: ClusterIP
+  {{- else }}
   type: NodePort
+  {{- end }}
 {{- end }}
