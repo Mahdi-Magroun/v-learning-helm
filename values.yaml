@@ -158,12 +158,11 @@ contentService:
 
 enrollmentService:
   enabled: true
-  port: 8084
+  port: 8085
 
 certificateService:
   enabled: true
-  port: 8085
-
+  port: 8084
 # Frontend
 frontend:
   enabled: true
