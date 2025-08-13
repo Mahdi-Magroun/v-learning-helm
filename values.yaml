@@ -91,38 +91,38 @@ resources:
   userService:
     requests:
       cpu: "10m"
-      memory: "64Mi"
+      memory: "128Mi"
     limits:
       cpu: "100m"
-      memory: "128Mi"
+      memory: "256Mi"
   courseService:
     requests:
       cpu: "10m"
-      memory: "64Mi"
+      memory: "128Mi"
     limits:
       cpu: "100m"
-      memory: "128Mi"
+      memory: "256Mi"
   contentService:
     requests:
       cpu: "10m"
-      memory: "64Mi"
+      memory: "128Mi"
     limits:
       cpu: "100m"
-      memory: "128Mi"
+      memory: "256Mi"
   enrollmentService:
     requests:
       cpu: "10m"
-      memory: "64Mi"
+      memory: "128Mi"
     limits:
       cpu: "100m"
-      memory: "128Mi"
+      memory: "256Mi"
   certificateService:
     requests:
       cpu: "10m"
-      memory: "64Mi"
+      memory: "128Mi"
     limits:
       cpu: "100m"
-      memory: "128Mi"
+      memory: "256Mi"
 
 # Database Configuration
 postgres:
