@@ -30,12 +30,12 @@ istio:
 
 # Canary Deployment Configuration (simplified)
 canary:
-  enabled: false
+  enabled: true
   # Traffic splitting - current vs previous image
   currentWeight: 90   # Traffic to current image tag
   previousWeight: 10  # Traffic to previous image tag
   # Which services to enable canary for
-  userService: false
+  userService: true
   courseService: false
   contentService: false
   enrollmentService: false
@@ -46,7 +46,7 @@ hpa:
   enabled: true
   # Default HPA settings for all microservices
   default:
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 10
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
@@ -71,17 +71,17 @@ hpa:
     targetCPUUtilizationPercentage: 70
   contentService:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   enrollmentService:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 75
   certificateService:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
 
