@@ -1,8 +1,8 @@
 # V-Learning Platform Configuration
 global:
   namespace: v-learning-test
-  imageTag: test-31
-  previousImageTag: test-30
+  imageTag: test-32
+  previousImageTag: test-31
   branch: test  # Options: dev, test, main
 
 # Istio Service Mesh Configuration
