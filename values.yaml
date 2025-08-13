@@ -90,39 +90,39 @@ hpa:
 resources:
   userService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "10m"
+      memory: "64Mi"
     limits:
-      cpu: "500m"
-      memory: "512Mi"
+      cpu: "100m"
+      memory: "128Mi"
   courseService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "10m"
+      memory: "64Mi"
     limits:
-      cpu: "500m"
-      memory: "512Mi"
+      cpu: "100m"
+      memory: "128Mi"
   contentService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "10m"
+      memory: "64Mi"
     limits:
-      cpu: "500m"
-      memory: "512Mi"
+      cpu: "100m"
+      memory: "128Mi"
   enrollmentService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "10m"
+      memory: "64Mi"
     limits:
-      cpu: "500m"
-      memory: "512Mi"
+      cpu: "100m"
+      memory: "128Mi"
   certificateService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "10m"
+      memory: "64Mi"
     limits:
-      cpu: "500m"
-      memory: "512Mi"
+      cpu: "100m"
+      memory: "128Mi"
 
 # Database Configuration
 postgres:
