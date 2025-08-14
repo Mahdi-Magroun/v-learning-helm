@@ -1,0 +1,125 @@
+{{- if eq (include "v-learning.istioEnabled" .) "true" }}
+{{- if .Values.canary.enabled }}
+
+{{- if .Values.userService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: user-service-vs
+  namespace: {{ .Values.global.namespace }}
+spec:
+  hosts:
+  - user-service
+  http:
+  - route:
+    - destination:
+        host: user-service
+        subset: current
+      weight: {{ if .Values.canary.userService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
+    {{- if .Values.canary.userService }}
+    - destination:
+        host: user-service
+        subset: previous
+      weight: {{ .Values.canary.previousWeight }}
+    {{- end }}
+---
+{{- end }}
+
+{{- if .Values.courseService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: course-service-vs
+  namespace: {{ .Values.global.namespace }}
+spec:
+  hosts:
+  - course-service
+  http:
+  - route:
+    - destination:
+        host: course-service
+        subset: current
+      weight: {{ if .Values.canary.courseService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
+    {{- if .Values.canary.courseService }}
+    - destination:
+        host: course-service
+        subset: previous
+      weight: {{ .Values.canary.previousWeight }}
+    {{- end }}
+---
+{{- end }}
+
+{{- if .Values.contentService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: content-service-vs
+  namespace: {{ .Values.global.namespace }}
+spec:
+  hosts:
+  - content-service
+  http:
+  - route:
+    - destination:
+        host: content-service
+        subset: current
+      weight: {{ if .Values.canary.contentService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
+    {{- if .Values.canary.contentService }}
+    - destination:
+        host: content-service
+        subset: previous
+      weight: {{ .Values.canary.previousWeight }}
+    {{- end }}
+---
+{{- end }}
+
+{{- if .Values.enrollmentService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: enrollment-service-vs
+  namespace: {{ .Values.global.namespace }}
+spec:
+  hosts:
+  - enrollment-service
+  http:
+  - route:
+    - destination:
+        host: enrollment-service
+        subset: current
+      weight: {{ if .Values.canary.enrollmentService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
+    {{- if .Values.canary.enrollmentService }}
+    - destination:
+        host: enrollment-service
+        subset: previous
+      weight: {{ .Values.canary.previousWeight }}
+    {{- end }}
+---
+{{- end }}
+
+{{- if .Values.certificateService.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: certificate-service-vs
+  namespace: {{ .Values.global.namespace }}
+spec:
+  hosts:
+  - certificate-service
+  http:
+  - route:
+    - destination:
+        host: certificate-service
+        subset: current
+      weight: {{ if .Values.canary.certificateService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
+    {{- if .Values.canary.certificateService }}
+    - destination:
+        host: certificate-service
+        subset: previous
+      weight: {{ .Values.canary.previousWeight }}
+    {{- end }}
+---
+{{- end }}
+
+{{- end }}
+{{- end }}

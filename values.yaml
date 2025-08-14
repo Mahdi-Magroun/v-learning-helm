@@ -36,17 +36,17 @@ canary:
   previousWeight: 10  # Traffic to previous image tag
   # Which services to enable canary for
   userService: true
-  courseService: false
-  contentService: false
-  enrollmentService: false
-  certificateService: false
+  courseService: true
+  contentService: true
+  enrollmentService: true
+  certificateService: true
 
 # Horizontal Pod Autoscaler Configuration
 hpa:
   enabled: true
   # Default HPA settings for all microservices
   default:
-    minReplicas: 2
+    minReplicas: 2  
     maxReplicas: 10
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
@@ -90,39 +90,39 @@ hpa:
 resources:
   userService:
     requests:
-      cpu: "10m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "512Mi"
     limits:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "1000m"
+      memory: "1Gi"
   courseService:
     requests:
-      cpu: "10m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "512Mi"
     limits:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "1000m"
+      memory: "1Gi"
   contentService:
     requests:
-      cpu: "10m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "512Mi"
     limits:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "1000m"
+      memory: "1Gi"
   enrollmentService:
     requests:
-      cpu: "10m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "512Mi"
     limits:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "1000m"
+      memory: "1Gi"
   certificateService:
     requests:
-      cpu: "10m"
-      memory: "128Mi"
+      cpu: "250m"
+      memory: "512Mi"
     limits:
-      cpu: "100m"
-      memory: "256Mi"
+      cpu: "1000m"
+      memory: "1Gi"
 
 # Database Configuration
 postgres:
