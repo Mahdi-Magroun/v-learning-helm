@@ -30,16 +30,18 @@ istio:
 
 # Canary Deployment Configuration (simplified)
 canary:
-  enabled: false
+  enabled: true
+  # Force route 100% to current version for all services (overrides weights)
+  currentOnly: false
   # Traffic splitting - current vs previous image
-  currentWeight: 90   # Traffic to current image tag
-  previousWeight: 10  # Traffic to previous image tag
+  currentWeight: 40   # Traffic to current image tag
+  previousWeight: 60  # Traffic to previous image tag
   # Which services to enable canary for
-  userService: false
-  courseService: false
-  contentService: false
-  enrollmentService: false
-  certificateService: false
+  userService: true
+  courseService: true
+  contentService: true
+  enrollmentService: true
+  certificateService: true
 
 # Horizontal Pod Autoscaler Configuration
 hpa:
@@ -61,12 +63,12 @@ hpa:
   # Per-service HPA overrides
   userService:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 5
     targetCPUUtilizationPercentage: 75
   courseService:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 8
     targetCPUUtilizationPercentage: 70
   contentService:
@@ -90,39 +92,39 @@ hpa:
 resources:
   userService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
-    limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   courseService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
-    limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   contentService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
-    limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   enrollmentService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
-    limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   certificateService:
     requests:
-      cpu: "100m"
-      memory: "256Mi"
-    limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
 
 # Database Configuration
 postgres:
@@ -158,12 +160,11 @@ contentService:
 
 enrollmentService:
   enabled: true
-  port: 8084
+  port: 8085
 
 certificateService:
   enabled: true
-  port: 8085
-
+  port: 8084
 # Frontend
 frontend:
   enabled: true
