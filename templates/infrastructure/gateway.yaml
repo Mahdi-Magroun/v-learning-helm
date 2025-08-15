@@ -41,7 +41,8 @@ spec:
   selector:
     app: api-gateway
   ports:
-  - port: {{ .Values.gateway.port }}
+  - name: http
+    port: {{ .Values.gateway.port }}
     targetPort: {{ .Values.gateway.port }}
     {{- if not (eq (include "v-learning.istioEnabled" .) "true") }}
     nodePort: {{ .Values.gateway.nodePort }}

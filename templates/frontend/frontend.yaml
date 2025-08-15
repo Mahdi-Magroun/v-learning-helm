@@ -34,7 +34,8 @@ spec:
   selector:
     app: frontend
   ports:
-  - port: {{ .Values.frontend.port }}
+  - name: http
+    port: {{ .Values.frontend.port }}
     targetPort: 80
     {{- if not (eq (include "v-learning.istioEnabled" .) "true") }}
     nodePort: {{ .Values.frontend.nodePort }}

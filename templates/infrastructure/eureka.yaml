@@ -32,7 +32,8 @@ spec:
   selector:
     app: eureka-server
   ports:
-  - port: {{ .Values.eureka.port }}
+  - name: http
+    port: {{ .Values.eureka.port }}
     targetPort: {{ .Values.eureka.port }}
   type: ClusterIP
 {{- end }}

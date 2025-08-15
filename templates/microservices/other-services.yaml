@@ -50,7 +50,8 @@ spec:
   selector:
     app: content-service
   ports:
-  - port: {{ .Values.contentService.port }}
+  - name: http
+    port: {{ .Values.contentService.port }}
     targetPort: {{ .Values.contentService.port }}
   type: ClusterIP
 {{- end }}
@@ -109,7 +110,8 @@ spec:
   selector:
     app: enrollment-service
   ports:
-  - port: {{ .Values.enrollmentService.port }}
+  - name: http
+    port: {{ .Values.enrollmentService.port }}
     targetPort: {{ .Values.enrollmentService.port }}
   type: ClusterIP
 {{- end }}
@@ -168,7 +170,8 @@ spec:
   selector:
     app: certificate-service
   ports:
-  - port: {{ .Values.certificateService.port }}
+  - name: http
+    port: {{ .Values.certificateService.port }}
     targetPort: {{ .Values.certificateService.port }}
   type: ClusterIP
 {{- end }}

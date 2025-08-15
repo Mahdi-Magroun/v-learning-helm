@@ -48,7 +48,8 @@ spec:
   selector:
     app: course-service
   ports:
-  - port: {{ .Values.courseService.port }}
+  - name: http
+    port: {{ .Values.courseService.port }}
     targetPort: {{ .Values.courseService.port }}
   type: ClusterIP
 {{- end }}
