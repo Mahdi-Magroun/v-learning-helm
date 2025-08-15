@@ -12,7 +12,7 @@ metadata:
     app: user-service
     version: previous
 spec:
-  replicas: 1
+  replicas: {{ if or (eq .Values.canary.previousWeight 0) .Values.canary.currentOnly }}0{{ else }}1{{ end }}
   selector:
     matchLabels:
       app: user-service
@@ -53,7 +53,7 @@ metadata:
     app: course-service
     version: previous
 spec:
-  replicas: 1
+  replicas: {{ if or (eq .Values.canary.previousWeight 0) .Values.canary.currentOnly }}0{{ else }}1{{ end }}
   selector:
     matchLabels:
       app: course-service
@@ -94,7 +94,7 @@ metadata:
     app: content-service
     version: previous
 spec:
-  replicas: 1
+  replicas: {{ if or (eq .Values.canary.previousWeight 0) .Values.canary.currentOnly }}0{{ else }}1{{ end }}
   selector:
     matchLabels:
       app: content-service
@@ -137,7 +137,7 @@ metadata:
     app: enrollment-service
     version: previous
 spec:
-  replicas: 1
+  replicas: {{ if or (eq .Values.canary.previousWeight 0) .Values.canary.currentOnly }}0{{ else }}1{{ end }}
   selector:
     matchLabels:
       app: enrollment-service
@@ -180,7 +180,7 @@ metadata:
     app: certificate-service
     version: previous
 spec:
-  replicas: 1
+  replicas: {{ if or (eq .Values.canary.previousWeight 0) .Values.canary.currentOnly }}0{{ else }}1{{ end }}
   selector:
     matchLabels:
       app: certificate-service

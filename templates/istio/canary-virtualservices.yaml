@@ -12,11 +12,16 @@ spec:
   - user-service
   http:
   - route:
+    {{- if or .Values.canary.currentOnly (eq .Values.canary.previousWeight 0) (not .Values.canary.userService) }}
     - destination:
         host: user-service
         subset: current
-      weight: {{ if .Values.canary.userService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
-    {{- if .Values.canary.userService }}
+      weight: 100
+    {{- else }}
+    - destination:
+        host: user-service
+        subset: current
+      weight: {{ .Values.canary.currentWeight }}
     - destination:
         host: user-service
         subset: previous
@@ -36,11 +41,16 @@ spec:
   - course-service
   http:
   - route:
+    {{- if or .Values.canary.currentOnly (eq .Values.canary.previousWeight 0) (not .Values.canary.courseService) }}
     - destination:
         host: course-service
         subset: current
-      weight: {{ if .Values.canary.courseService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
-    {{- if .Values.canary.courseService }}
+      weight: 100
+    {{- else }}
+    - destination:
+        host: course-service
+        subset: current
+      weight: {{ .Values.canary.currentWeight }}
     - destination:
         host: course-service
         subset: previous
@@ -60,11 +70,16 @@ spec:
   - content-service
   http:
   - route:
+    {{- if or .Values.canary.currentOnly (eq .Values.canary.previousWeight 0) (not .Values.canary.contentService) }}
     - destination:
         host: content-service
         subset: current
-      weight: {{ if .Values.canary.contentService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
-    {{- if .Values.canary.contentService }}
+      weight: 100
+    {{- else }}
+    - destination:
+        host: content-service
+        subset: current
+      weight: {{ .Values.canary.currentWeight }}
     - destination:
         host: content-service
         subset: previous
@@ -84,11 +99,16 @@ spec:
   - enrollment-service
   http:
   - route:
+    {{- if or .Values.canary.currentOnly (eq .Values.canary.previousWeight 0) (not .Values.canary.enrollmentService) }}
     - destination:
         host: enrollment-service
         subset: current
-      weight: {{ if .Values.canary.enrollmentService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
-    {{- if .Values.canary.enrollmentService }}
+      weight: 100
+    {{- else }}
+    - destination:
+        host: enrollment-service
+        subset: current
+      weight: {{ .Values.canary.currentWeight }}
     - destination:
         host: enrollment-service
         subset: previous
@@ -108,11 +128,16 @@ spec:
   - certificate-service
   http:
   - route:
+    {{- if or .Values.canary.currentOnly (eq .Values.canary.previousWeight 0) (not .Values.canary.certificateService) }}
     - destination:
         host: certificate-service
         subset: current
-      weight: {{ if .Values.canary.certificateService }}{{ .Values.canary.currentWeight }}{{ else }}100{{ end }}
-    {{- if .Values.canary.certificateService }}
+      weight: 100
+    {{- else }}
+    - destination:
+        host: certificate-service
+        subset: current
+      weight: {{ .Values.canary.currentWeight }}
     - destination:
         host: certificate-service
         subset: previous
