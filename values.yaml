@@ -48,7 +48,7 @@ hpa:
   enabled: true
   # Default HPA settings for all microservices
   default:
-  minReplicas: 1  
+    minReplicas: 1
     maxReplicas: 10
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
@@ -63,27 +63,27 @@ hpa:
   # Per-service HPA overrides
   userService:
     enabled: true
-  minReplicas: 1
+    minReplicas: 1
     maxReplicas: 5
     targetCPUUtilizationPercentage: 75
   courseService:
     enabled: true
-  minReplicas: 1
+    minReplicas: 1
     maxReplicas: 8
     targetCPUUtilizationPercentage: 70
   contentService:
     enabled: true
-  minReplicas: 1
+    minReplicas: 1
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   enrollmentService:
     enabled: true
-  minReplicas: 1
+    minReplicas: 1
     maxReplicas: 4
     targetCPUUtilizationPercentage: 75
   certificateService:
     enabled: true
-  minReplicas: 1
+    minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
 
@@ -92,39 +92,39 @@ hpa:
 resources:
   userService:
     requests:
-      cpu: "250m"
-      memory: "512Mi"
-    limits:
-      cpu: "1000m"
+      cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   courseService:
     requests:
-      cpu: "250m"
-      memory: "512Mi"
-    limits:
-      cpu: "1000m"
+      cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   contentService:
     requests:
-      cpu: "250m"
-      memory: "512Mi"
-    limits:
-      cpu: "1000m"
+      cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   enrollmentService:
     requests:
-      cpu: "250m"
-      memory: "512Mi"
-    limits:
-      cpu: "1000m"
+      cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
   certificateService:
     requests:
-      cpu: "250m"
-      memory: "512Mi"
-    limits:
-      cpu: "1000m"
+      cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
 
 # Database Configuration
 postgres:
